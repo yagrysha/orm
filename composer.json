@@ -1,0 +1,26 @@
+{
+    "name": "yagrysha/orm",
+    "description": "lightweight orm",
+    "keywords": ["yargysha", "orm"],
+    "homepage": "http://github.com/yagrysha/",
+    "authors": [
+        {
+            "name": "Yaroslav Gryshanovich",
+            "email": "yagrysha@gmail.com"
+        }
+    ],
+    "license": [
+        "MIT"
+    ],
+     "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yagrysha\\ORM\\": "src/"
+        }
+    }
+}
