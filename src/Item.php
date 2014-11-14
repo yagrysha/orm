@@ -25,7 +25,7 @@ abstract class Item extends Record
     public function delete()
     {
         if (null !== $this->getId()) {
-            Db::delete(static::TABLE, $this->getPkArray());
+            parent::delete();
         }
     }
 }

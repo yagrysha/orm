@@ -5,7 +5,7 @@ trait MapperTrait
 {
     /**
      * @param int $id
-     * @return dbItem|null
+     * @return Item|null
      */
     public static function findByPk($id)
     {
@@ -13,8 +13,17 @@ trait MapperTrait
     }
 
     /**
+     * @param int $id
+     * @return Item|null
+     */
+    public static function findById($id)
+    {
+        return Mapper::findByPk(__CLASS__, $id, self::PRK);
+    }
+
+    /**
      * @param array|string $where
-     * @return dbItem[]|null
+     * @return Item[]|null
      */
     public static function findAll($where)
     {
@@ -23,7 +32,7 @@ trait MapperTrait
 
     /**
      * @param $where
-     * @return dbItem|null
+     * @return Item|null
      */
     public static function find($where)
     {
@@ -32,7 +41,7 @@ trait MapperTrait
 
     /**
      * @param $params
-     * @return dbItem|null
+     * @return Item|null
      */
     public static function findByParams(array $params)
     {
@@ -41,7 +50,7 @@ trait MapperTrait
 
     /**
      * @param $params
-     * @return dbItem[]|null
+     * @return Item[]|null
      */
     public static function findByParamsAll(array $params)
     {
@@ -60,13 +69,12 @@ trait MapperTrait
 
     /**
      * find or create (!save)
-     * @param int $id
-     * @param string $pk
+     * @param $id
      * @return self|null
      */
-    public static function getById($id, $pk = 'id')
+    public static function getById($id)
     {
-        $obj = Mapper::findByPk(__CLASS__, $id, $pk);
+        $obj = Mapper::findByPk(__CLASS__, $id, self::PRK);
         if (!$obj) {
             $obj = new self();
             $obj->id = $id;
@@ -77,7 +85,7 @@ trait MapperTrait
     /**
      * create and NO save
      * @param array $params
-     * @return dbItem
+     * @return Item
      */
     public static function create($params = [])
     {

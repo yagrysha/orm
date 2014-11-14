@@ -9,8 +9,8 @@ class Mapper
     private static $map = [];
 
     /**
-     * @param dbItem|string $class
-     * @return dbItem|null
+     * @param Item|string $class
+     * @return Item|null
      */
     public static function findAll($class)
     {
@@ -22,13 +22,13 @@ class Mapper
     }
 
     /**
-     * @param dbItem|string $class
+     * @param Item|string $class
      * @param string|array $sql
-     * @return dbItem|null
+     * @return Item|null
      */
     public static function findBySql($class, $sql)
     {
-        $data = Db::row($class::TABLE, '', $sql);
+        $data = Db::row($class::TABLE, $sql);
         if (empty($data)) {
             return null;
         }
@@ -36,14 +36,14 @@ class Mapper
     }
 
     /**
-     * @param dbItem|string $class
+     * @param Item|string $class
      * @param string|array $sql
      * @param int $limit
-     * @return null|dbItem
+     * @return null|Item
      */
     static function findBySqlAll($class, $sql, $limit = 9999)
     {
-        $data = Db::rows($class::TABLE, '', $sql, $limit);
+        $data = Db::rows($class::TABLE, $sql, '', $limit);
         if (empty($data)) {
             return null;
         }
@@ -67,7 +67,7 @@ class Mapper
     /**
      * @param $class
      * @param $params
-     * @return null|dbItem
+     * @return null|Item
      */
     static function findByParams($class, array $params)
     {
@@ -79,12 +79,12 @@ class Mapper
     }
 
     /**
-     * @param dbItem|string $class
+     * @param Item|string $class
      * @param string $pk
      * @param string|int $id
-     * @return null|dbItem
+     * @return null|Item
      */
-    static function findByPk($class, $id, $pk = 'id')
+    static function findByPk($class, $id, $pk = Record::PRK)
     {
         if (isset(self::$map[$class][$id])) {
             return self::$map[$class][$id];
@@ -98,7 +98,7 @@ class Mapper
         return $obj;
     }
 
-    static function findOrCreate($class, $id, $pk = 'id')
+    static function findOrCreate($class, $id, $pk = Record::PRK)
     {
         if (isset(self::$map[$class][$id])) {
             return self::$map[$class][$id];

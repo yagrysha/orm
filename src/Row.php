@@ -84,7 +84,7 @@ abstract class Row extends Record
     public function delete()
     {
         if ($this->isLoaded() || $this->isChangedPk()) {
-            Db::delete(static::TABLE, $this->getPkArray());
+           parent::delete();
         }
     }
 }

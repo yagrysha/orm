@@ -15,7 +15,10 @@ abstract class Record implements \ArrayAccess
 
     abstract public function save();
 
-    abstract public function delete();
+    public function delete()
+    {
+        return Db::delete(static::TABLE, $this->getPkArray());
+    }
 
     public function replace()
     {

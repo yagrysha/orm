@@ -32,8 +32,13 @@ class RecordTest extends \PHPUnit_Framework_TestCase
         var_dump($person);
     }
 }
-class Person extends Item {
-    use DbTrait, MapperTrait;
+class Person extends Record {
     const TABLE = 'test_Persons';
+    public function save(){
+        return true;
+    }
+    public function delete(){
+        return true;
+    }
 }
  
