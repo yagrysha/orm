@@ -13,7 +13,9 @@ abstract class Record implements \ArrayAccess
         $this->_loaded = $loaded;
     }
 
-    abstract public function save();
+    public function save(){
+		return $this->replace();
+	}
 
     public function delete()
     {
@@ -38,7 +40,7 @@ abstract class Record implements \ArrayAccess
         }
         $this->_changed = [];
         $this->_loaded = true;
-        return $ret;
+        return $ret===0?true:$ret;
     }
 
     public function update()

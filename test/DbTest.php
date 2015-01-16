@@ -6,7 +6,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     }
     static public function tearDownAfterClass()
     {
-        //Db::query("DROP TABLE test_Persons");
+        Db::query("DROP TABLE test_Persons");
         Db::close();
     }
 
@@ -38,17 +38,20 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testEsc(){
         $this->assertEquals('hel\"%`\\\'lo', Db::esc('hel"%`\'lo'));
     }
-    public function testQuery(){
-        $this->assertTrue(Db::query("DROP TABLE IF EXISTS test_Persons"));
-        $res = Db::query("CREATE TABLE test_Persons
-(
-id int,
-LastName varchar(50),
-FirstName varchar(50),
-Address varchar(255),
-City varchar(100), PRIMARY KEY (id)
-); ");
-        $this->assertTrue($res);
+    public function testQuery()
+	{
+		$this->assertTrue(Db::query("DROP TABLE IF EXISTS test_Persons"));
+		$res = Db::query(
+			"CREATE TABLE test_Persons
+			(
+			id int,
+			LastName varchar(50),
+			FirstName varchar(50),
+			Address varchar(255),
+			City varchar(100), PRIMARY KEY (id)
+			); "
+		);
+		$this->assertTrue($res);
     }
     public function testInsert(){
         $ins = Db::insert('test_Persons',

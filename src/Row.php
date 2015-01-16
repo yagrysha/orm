@@ -29,7 +29,9 @@ abstract class Row extends Record
     public function setId($value)
     {
         if (is_array($this->_prk)) {
-            $this->_fields = array_merge($this->_fields, $value);
+            foreach($value as $k=>$v){
+                parent::set($k,$v);
+            }
         } else {
             parent::setId($value);
         }

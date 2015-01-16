@@ -36,3 +36,14 @@ function pe(){
     debug_print(func_get_args());
     exit();
 }
+
+
+/**
+ * Class Person
+ * @package Yagrysha\ORM
+ * @property $id
+ * @property $Name
+ */
+class PersonItem extends Yagrysha\ORM\Item {
+    const TABLE = 'test_Persons';
+}
