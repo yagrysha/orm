@@ -29,7 +29,7 @@ trait DbTrait
      */
     public static function row($where = '', $select = '')
     {
-        return Db::row(self::TABLE, $select, $where);
+        return Db::row(self::TABLE, $where, $select);
     }
 
     /**
@@ -39,7 +39,7 @@ trait DbTrait
      */
     public static function rowId($id, $select = '')
     {
-        return Db::row(self::TABLE, $select, [self::PRK => $id]);
+        return Db::row(self::TABLE, [self::PRK => $id], $select);
     }
 
     /**
@@ -51,7 +51,7 @@ trait DbTrait
      */
     public static function rows($where = '', $select = '', $limit = '', $plain_array = false)
     {
-        return Db::rows(self::TABLE, $select, $where, $limit, $plain_array);
+        return Db::rows(self::TABLE, $where, $select, $limit, $plain_array);
     }
 
     /**
@@ -127,5 +127,18 @@ trait DbTrait
     public static function ins(array $set, $replace = false)
     {
         return Db::insert(self::TABLE, $set, $replace);
+    }
+
+    /**
+     * @param string|array $request
+     * @return bool|\mysqli_result
+     * @throws Exception
+     */
+    public static function query($request){
+        if(is_array($request)){
+            if(empty($request['from']))$request['from']=self::TABLE;
+            $request = Db::buildQuery($request);
+        }
+        return Db::query($request);
     }
 } 

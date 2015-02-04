@@ -16,6 +16,7 @@ abstract class Item extends Record
             $id = $this->insert();
             if(false===$id) return false;
             $this->setId($id);
+            $this->_changed = [];
         } else {
             if(false===$this->update()) return false;
         }

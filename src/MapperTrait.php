@@ -74,10 +74,11 @@ trait MapperTrait
      */
     public static function getById($id)
     {
-        $obj = Mapper::findByPk(__CLASS__, $id, self::PRK);
+        $pk = self::PRK;
+        $obj = Mapper::findByPk(__CLASS__, $id, $pk);
         if (!$obj) {
             $obj = new self();
-            $obj->id = $id;
+            $obj->$pk = $id;
         }
         return $obj;
     }

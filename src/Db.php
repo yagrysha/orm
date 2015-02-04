@@ -255,9 +255,7 @@ class Db
                 $return[$row[$params['index']]] = $row;
             }
         } else {
-            while ($row = $result->fetch_assoc()) {
-                $return[] = $row;
-            }
+            $return = $result->fetch_all(MYSQL_ASSOC);
         }
         $result->free();
         return $return;
@@ -402,9 +400,7 @@ class Db
                 $return[] = $row[$select];
             }
         } else {
-            while ($row = $result->fetch_assoc()) {
-                $return[] = $row;
-            }
+            $return = $result->fetch_all(MYSQL_ASSOC);
         }
         $result->free();
         return $return;

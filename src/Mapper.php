@@ -4,11 +4,6 @@ namespace Yagrysha\ORM;
 class Mapper
 {
     /**
-     * @var array
-     */
-    private static $map = [];
-
-    /**
      * @param Item|string $class
      * @return Item|null
      */
@@ -86,23 +81,22 @@ class Mapper
      */
     static function findByPk($class, $id, $pk = Record::PRK)
     {
-        if (isset(self::$map[$class][$id])) {
-            return self::$map[$class][$id];
-        }
         $data = Db::row($class::TABLE, [$pk => $id]);
         if (empty($data)) {
             return null;
         }
         $obj = self::build($class, $data);
-        self::$map[$class][$id] = $obj;
         return $obj;
     }
 
+    /**
+     * @param Item|string $class
+     * @param $id
+     * @param string $pk
+     * @return Item
+     */
     static function findOrCreate($class, $id, $pk = Record::PRK)
     {
-        if (isset(self::$map[$class][$id])) {
-            return self::$map[$class][$id];
-        }
         $data = Db::row($class::TABLE, [$pk => $id]);
         if (empty($data)) {
             $obj = new $class;
@@ -110,14 +104,13 @@ class Mapper
         } else {
             $obj = self::build($class, $data);
         }
-        self::$map[$class][$id] = $obj;
         return $obj;
     }
 
     /**
-     * @param $class
+     * @param string $class
      * @param $data
-     * @return array
+     * @return Item[]
      */
     public static function buildMultiple($class, array $data)
     {
@@ -137,7 +130,7 @@ class Mapper
     /**
      * @param $class
      * @param $data
-     * @return mixed
+     * @return Item
      */
     public static function build($class, array $data)
     {

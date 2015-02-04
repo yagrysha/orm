@@ -1,5 +1,6 @@
 <?php
 namespace Yagrysha\ORM;
+use \PersonItem;
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()

@@ -45,5 +45,6 @@ function pe(){
  * @property $Name
  */
 class PersonItem extends Yagrysha\ORM\Item {
+    use Yagrysha\ORM\MapperTrait, Yagrysha\ORM\DbTrait;
     const TABLE = 'test_Persons';
 }

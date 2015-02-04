@@ -1,2 +1,1 @@
-<phpunit bootstrap="./bootstrap.php">
-</phpunit>
+<phpunit bootstrap="./bootstrap.php"></phpunit>
