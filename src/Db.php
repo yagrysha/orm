@@ -193,34 +193,16 @@ class Db
      */
     public static function query($sql)
     {
-        //COMMSTART>>
-        $start = microtime(true);
         if (self::$debug) {
             echo $sql . "<br>\n";
         }
-        //<<COMMEND
         $result = self::connect()->query($sql);
-        //COMMSTART>>
-        $endtime = microtime(true) - $start;
-        if (self::$debug) {
-            if ($endtime > 1) {
-                echo 'медленный запрос ' . $sql . ' ' . $endtime;
-            }
-            echo $endtime . "<br>\n";
-            flush();
-        }
-        //<<COMMEND
         if ($result) {
             return $result;
         }
-
-        //COMMSTART>>
         if (self::$debug) {
             echo self::$db->error . "<br>\n";
-            flush();
-            throw new Exception('SQL ERROR', $sql . ' ' . self::$db->error);
         }
-        //<<COMMEND
         return false;
     }
 
@@ -255,7 +237,7 @@ class Db
                 $return[$row[$params['index']]] = $row;
             }
         } else {
-            $return = $result->fetch_all(MYSQL_ASSOC);
+            $return = $result->fetch_all(MYSQLI_ASSOC);
         }
         $result->free();
         return $return;
@@ -400,7 +382,7 @@ class Db
                 $return[] = $row[$select];
             }
         } else {
-            $return = $result->fetch_all(MYSQL_ASSOC);
+            $return = $result->fetch_all(MYSQLI_ASSOC);
         }
         $result->free();
         return $return;
