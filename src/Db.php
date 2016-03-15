@@ -236,8 +236,12 @@ class Db
             while ($row = $result->fetch_assoc()) {
                 $return[$row[$params['index']]] = $row;
             }
-        } else {
+        } elseif(method_exists($result, 'fetch_all')) {
             $return = $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                $return[] = $row;
+            }
         }
         $result->free();
         return $return;
@@ -381,8 +385,12 @@ class Db
             while ($row = $result->fetch_assoc()) {
                 $return[] = $row[$select];
             }
-        } else {
+        } elseif(method_exists($result, 'fetch_all')) {
             $return = $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                $return[] = $row;
+            }
         }
         $result->free();
         return $return;
